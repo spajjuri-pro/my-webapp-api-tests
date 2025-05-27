@@ -23,3 +23,17 @@ To generate an HTML report, run:
 ```bash
 pytest -v --html=report.html --self-contained-html
 ```
+API tests will be saved in `report.html`.
+
+## API Tests Implemented
+- Test for fetching top stories
+- Test for fetching a specific story by ID
+- Test for fetching first comment of a top story
+
+## Edge Cases covered
+- Test for fetching a non-existent item
+- Test for fetching null item
+- Test for fetching invalid parameters
+- Test for sql injection attempts
+- Test for http security headers
+- Test for rate limiting
