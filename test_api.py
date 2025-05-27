@@ -44,7 +44,9 @@ def test_get_top_stories_details():
         - Verifies Top story details from Items API is a Dictionary
         - Verifies "id" value of item details is current top story ID
         - Verifies 'type' and 'title' fields are part of item details
-    :return:
+    Edge Cases Covered:
+        - If top stories list is empty, the test fails
+        - Network issues are handled by the get_response_json function
     """
     top_story_ids = get_response_json(TOP_STORIES_URL)
     assert len(top_story_ids) > 0, "Top Stories item list is empty"
@@ -64,9 +66,13 @@ def test_first_comment_of_top_story():
     Description:
     -Fetches the list of top stories
     -Iterate through the list of top stories to find the one with the comments (indicated by 'kids' array)
-    -
+    - Verify that the first comment of the top story is retrieved successfully
+    - Asserts key fields in the comment details
+    Edge Cases Covered:
+    - If no top story with comments is found in the first 20 stories, the test fails
+    - Empty 'kids' array in the story details is handled
+    - Network issues (handleed by get_response_json function)
 
-    :return:
     """
     top_stories_ids = get_response_json(TOP_STORIES_URL)
     story_with_comments_found = False
