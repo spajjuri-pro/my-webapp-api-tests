@@ -1,39 +1,62 @@
 # my-webapp-api-tests
 
-This project is designed to test the public Hackernews API.
+Automated tests for the public Hacker News API, covering both functional and security (OWASP) scenarios.
 
-## Dev Environment Setup
+---
+
+## Setup
 
 ```bash
 python3 -m venv venv
-source venv/bin/activate  # Activate the virtual environment
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## How to Run Tests
+## Running Tests
 
 ```bash
-pytest <test_file>
+pytest
 ```
 
-## How to View Results
-
-To generate an HTML report, run:
+To generate an HTML report:
 
 ```bash
 pytest -v --html=report.html --self-contained-html
 ```
-API tests will be saved in `report.html`.
 
-## API Tests Implemented
-- Test for fetching top stories
-- Test for fetching a specific story by ID
-- Test for fetching first comment of a top story
+---
 
-## Edge Cases covered
-- Test for fetching a non-existent item
-- Test for fetching null item
-- Test for fetching invalid parameters
-- Test for sql injection attempts
-- Test for http security headers
-- Test for rate limiting
+## Test Coverage
+
+### Functional Tests
+
+- **Top Stories Retrieval:**  
+  Ensures the `/topstories` endpoint returns a non-empty list of integer IDs.
+- **Story Details:**  
+  Fetches and validates details for a top story.
+- **First Comment Retrieval:**  
+  Validates the structure and content of the first comment for a top story.
+
+### Security & OWASP Tests
+
+- **Invalid, Empty, Null, and Non-Existent Item IDs:**  
+  Checks API response for various invalid item IDs (expects `200 OK` with `null`).
+- **SQL Injection Attempt:**  
+  Ensures no sensitive data is leaked and no SQL is executed.
+- **HTTP Security Headers:**  
+  Verifies presence of headers like `Strict-Transport-Security`.
+- **Verbose Error Messages:**  
+  Ensures no sensitive error information is exposed.
+- **Rate Limiting:**  
+  Checks if the API enforces rate limiting (`429 Too Many Requests`).  
+  _Note: Hacker News API may not enforce this; test may fail by design._
+
+---
+
+## Notes
+
+- The Hacker News API typically returns `200 OK` with a `null` body for invalid or non-existent item IDs.
+- Rate limiting is not always enforced; related tests may not pass.
+- Tests are written using `pytest` and `requests`.
+
+---
