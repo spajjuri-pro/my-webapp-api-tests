@@ -7,4 +7,4 @@ Dev Environment setup:
 How to run tests:
     pytest <test_file>
 How to view results:
-    
+    run "pytest -v --html=report.html --self-contained-html" to generate HTML report.
